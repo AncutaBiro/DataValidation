@@ -50,9 +50,13 @@ namespace DV4StudentsCoins
 
             int[] coinsPerStudent = DistributionOfCoins(grades);
 
-            for (int j = 0; j < studensName.Length; j++)
+
+
+
+
+            for (int k = 0; k < studensName.Length; k++)
             {
-                Console.WriteLine(studensName[j] + " " + coinsPerStudent[j]);
+                Console.WriteLine(studensName[k] + " " + coinsPerStudent[k]);
             }
 
             Console.Read();
@@ -86,35 +90,25 @@ namespace DV4StudentsCoins
         {
             int[] coinsPerStudent = new int[grades.Length];
 
-            for (int k = 0; k < coinsPerStudent.Length; k++)
+            coinsPerStudent[0] = 1;
+
+            for (int i = 1; i < grades.Length; i++)
             {
-                coinsPerStudent[k] = 1;
-            }
-
-            for (int i = 1; i < grades.Length - 1; i++)
-                {
-                if (grades[0] > grades[1])
-                {
-                 coinsPerStudent[0] = coinsPerStudent[1] + 1;
-                 Console.WriteLine(coinsPerStudent[0]);
-                }
-
                 if (grades[i] > grades[i - 1])
                 {
-                coinsPerStudent[i] = coinsPerStudent[i - 1] + 1;
-                Console.WriteLine(coinsPerStudent[i]);
+                    coinsPerStudent[i] = coinsPerStudent[i - 1] + 1;
                 }
-
-                if (grades[i] > grades[i + 1])
+                else
                 {
-                coinsPerStudent[i] = coinsPerStudent[i + 1] + 1;
-                Console.WriteLine(coinsPerStudent[i]);
-                }
+                    coinsPerStudent[i] = 1;
 
-                if (grades[grades.Length - 1] > grades[grades.Length - 1 - 1])
-                {
-                coinsPerStudent[grades.Length - 1] = coinsPerStudent[grades.Length - 1 - 1] + 1;
-                Console.WriteLine(coinsPerStudent[grades.Length - 1]);
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        if (grades[i] < grades[j])
+                        {
+                            coinsPerStudent[i]++;
+                        }
+                    }
                 }
             }
 
