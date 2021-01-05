@@ -48,18 +48,29 @@ namespace DV4StudentsCoins
 
             int[] grades = ReadGrades(n);
 
-            int[] coinsPerStudent = DistributionOfCoins(grades);
+            int[] coinsPerStudent = new int[grades.Length];
 
+            coinsPerStudent[0] = 1;
 
-
-
-
-            for (int k = 0; k < studensName.Length; k++)
+            for (int i = 1; i < grades.Length; i++)
             {
-                Console.WriteLine(studensName[k] + " " + coinsPerStudent[k]);
-            }
+                if (grades[i] > grades[i - 1])
+                {
+                    coinsPerStudent[i] = coinsPerStudent[i - 1] + 1;
+                }
+                else
+                {
+                    coinsPerStudent[i] = 1;
 
-            Console.Read();
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        if (grades[i] < grades[j])
+                        {
+                            coinsPerStudent[i]++;
+                        }
+                    }
+                }
+            }
         }
 
         static string[] ReadStudentsName(int n)
@@ -86,29 +97,13 @@ namespace DV4StudentsCoins
             return grades;
         }
 
-        static int[] DistributionOfCoins(int[] grades)
+        static int[] DistributionOfCoins(int[] grades, int[] coinsPerStudent, int i)
         {
-            int[] coinsPerStudent = new int[grades.Length];
-
-            coinsPerStudent[0] = 1;
-
-            for (int i = 1; i < grades.Length; i++)
+            for (int j = i - 1; j >= 0; j--)
             {
-                if (grades[i] > grades[i - 1])
+                if (grades[i] < grades[j])
                 {
-                    coinsPerStudent[i] = coinsPerStudent[i - 1] + 1;
-                }
-                else
-                {
-                    coinsPerStudent[i] = 1;
-
-                    for (int j = i - 1; j >= 0; j--)
-                    {
-                        if (grades[i] < grades[j])
-                        {
-                            coinsPerStudent[i]++;
-                        }
-                    }
+                    coinsPerStudent[i]++;
                 }
             }
 
