@@ -8,38 +8,16 @@ namespace DVSudokuGame
 
         static void Main()
         {
-            /*int[,] board = new int[N, N];*/
+            int[,] board = new int[N, N];
 
-            int[,] board = new int[,]
-                            {
-                            { 9, 1, 8, 5, 7, 2, 6, 4, 3 },
-                            { 7, 5, 3, 6, 9, 4, 1, 8, 2 },
-                            { 2, 6, 4, 1, 8, 3, 7, 9, 5 },
-                            { 1, 9, 6, 4, 2, 8, 5, 3, 7 },
-                            { 3, 8, 2, 7, 5, 6, 9, 1, 4 },
-                            { 5, 4, 7, 9, 3, 1, 8, 2, 6 },
-                            { 4, 7, 9, 2, 1, 5, 3, 6, 8 },
-                            { 8, 2, 5, 3, 6, 9, 4, 7, 1 },
-                            { 6, 3, 1, 8, 4, 7, 2, 5, 9 }
-                            };
-
-  
-
-            /*if (!ReadAndValidateInputData(board))
+            if (!ReadAndValidateInputData(board))
             {
                 Console.WriteLine("Please enter a 9x9 sudoku board: numbers between 1-9 separated by spaces");
             }
             else
-            {*//*
-                    if (CheckBoard(board))
-                    {
-                        result = true;
-                    }
-*/
-          /*  }*/
-            Console.WriteLine(CheckRow(board));
-            Console.WriteLine(CheckBoard(board));
-            Console.WriteLine(CheckBoard(board));
+            {
+                Console.WriteLine(CheckBoard(board));
+            }
         }
 
         static bool ReadAndValidateInputData(int[,] board)
@@ -96,20 +74,20 @@ namespace DVSudokuGame
             return true;
         }
 
-        static bool CheckBlock(int[,] board, int row, int col, int num)
+        static bool CheckBlock(int[,] board, int row, int col)
         {
             int sqrt = (int)Math.Sqrt(N);
 
             for (int i = row; i < row + sqrt; i++)
+            {
+                for (int j = col; j < col + sqrt; j++)
                 {
-                    for (int j = col; j < col + sqrt; j++)
+                    if (!CheckRow(board, i, j) || !CheckColumn(board, i, j))
                     {
-                        if (num == board[i, j])
-                        {
-                            return false;
-                        }
+                        return false;
                     }
                 }
+            }
 
             return true;
         }
@@ -127,19 +105,18 @@ namespace DVSudokuGame
                 }
             }
 
-
-            /*int sqrt = (int)Math.Sqrt(N);
+            int sqrt = (int)Math.Sqrt(N);
 
             for (int row = 0; row < N; row += sqrt)
             {
                 for (int col = 0; col < N; col += sqrt)
                 {
-                    if (!CheckBlock(board, row, col, num))
+                    if (!CheckBlock(board, row, col))
                     {
                         return false;
                     }
                 }
-            }*/
+            }
 
             return true;
         }
