@@ -23,19 +23,35 @@ namespace Students_CoinsTests
                     coinsPerStudent[i] = coinsPerStudent[i - 1] + 1;
                 }
 
-               /*case grades 9/10/8/7 = coins 3/4/2/1 when it should be 1/3/2/1 */
+               /*case grades 9/10/8/7 = coins 3/4/2/1 when it should be 1/3/2/1 , but it works with 10/9/8/7 */
                 else
                 {
-                    coinsPerStudent[i] = 1;
+                    /*coinsPerStudent[i] = 1;
 
                     for (int j = i - 1; j >= 0; j--)
                     {
-                        if (grades[i] < grades[j])
+                        if (grades[j] > grades[i] )
                         {
                             coinsPerStudent[j]++;
                         }
+                    }*/
+
+                    /*case grades 9/10/8/7 = coins 1/3/2/1 , but don't works with 10/9/8/7 = coins 2/2/2/1 (correct 4/3/2/1)*/
+
+                    for (int j = i - 1; j >= 0; j--)                       
+                    {
+                        coinsPerStudent[j] = 1;
+
+                        if (grades[j] > grades[i]) 
+                        {
+                            coinsPerStudent[j]++;
+                        }
+                       
                     }
+
+
                 }
+
 
 
 
